@@ -1,38 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Container, Form, Button, Alert } from 'react-bootstrap';
-import { path } from '../../path';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { Container, Form, Button, Alert } from "react-bootstrap";
+import { path } from "../../path";
 
 function Profile({ auth, setAuth, users, updateUsers }) {
   const [userDetails, setUserDetails] = useState({
-    login_name: '',
-    first_name: '',
-    last_name: '',
-    location: '',
-    description: '',
-    occupation: ''
+    login_name: "",
+    first_name: "",
+    last_name: "",
+    location: "",
+    description: "",
+    occupation: "",
   });
-  const [message, setMessage] = useState({ type: '', text: '' });
+  const [message, setMessage] = useState({ type: "", text: "" });
   const { pathname } = useLocation();
 
-  const id  = pathname.split("/").pop();
+  const id = pathname.split("/").pop();
 
   useEffect(() => {
     const fetchUserData = async () => {
       const response = await fetch(`${path}api/user/${id}`, {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       if (response.ok) {
         const data = await response.json();
         setUserDetails(data);
       } else {
-        setMessage({ type: 'danger', text: 'Error fetching user details' });
+        setMessage({ type: "danger", text: "Error fetching user details" });
       }
     };
-    
+
     if (id) {
       fetchUserData();
     }
@@ -46,21 +46,21 @@ function Profile({ auth, setAuth, users, updateUsers }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`${path}api/user/update`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify(userDetails)
+      body: JSON.stringify(userDetails),
     });
 
     if (response.ok) {
       const updatedUser = await response.json();
       setAuth({ ...auth, user: updatedUser });
-      setMessage({ type: 'success', text: 'Profile updated successfully' });
+      setMessage({ type: "success", text: "Profile updated successfully" });
       updateUsers();
     } else {
-      setMessage({ type: 'danger', text: 'Error updating profile' });
+      setMessage({ type: "danger", text: "Error updating profile" });
     }
   };
 
@@ -71,29 +71,66 @@ function Profile({ auth, setAuth, users, updateUsers }) {
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="login_name">
           <Form.Label>Login Name</Form.Label>
-          <Form.Control type="text" name="login_name" value={userDetails.login_name} disabled />
+          <Form.Control
+            type="text"
+            name="login_name"
+            value={userDetails.login_name}
+            disabled
+          />
         </Form.Group>
         <Form.Group controlId="first_name">
           <Form.Label>First Name</Form.Label>
-          <Form.Control type="text" name="first_name" value={userDetails.first_name} onChange={handleChange} placeholder="First Name" />
+          <Form.Control
+            type="text"
+            name="first_name"
+            value={userDetails.first_name}
+            onChange={handleChange}
+            placeholder="First Name"
+          />
         </Form.Group>
         <Form.Group controlId="last_name">
           <Form.Label>Last Name</Form.Label>
-          <Form.Control type="text" name="last_name" value={userDetails.last_name} onChange={handleChange} placeholder="Last Name" />
+          <Form.Control
+            type="text"
+            name="last_name"
+            value={userDetails.last_name}
+            onChange={handleChange}
+            placeholder="Last Name"
+          />
         </Form.Group>
         <Form.Group controlId="location">
           <Form.Label>Location</Form.Label>
-          <Form.Control type="text" name="location" value={userDetails.location} onChange={handleChange} placeholder="Location" />
+          <Form.Control
+            type="text"
+            name="location"
+            value={userDetails.location}
+            onChange={handleChange}
+            placeholder="Location"
+          />
         </Form.Group>
         <Form.Group controlId="description">
           <Form.Label>Description</Form.Label>
-          <Form.Control type="text" name="description" value={userDetails.description} onChange={handleChange} placeholder="Description" />
+          <Form.Control
+            type="text"
+            name="description"
+            value={userDetails.description}
+            onChange={handleChange}
+            placeholder="Description"
+          />
         </Form.Group>
         <Form.Group controlId="occupation">
           <Form.Label>Occupation</Form.Label>
-          <Form.Control type="text" name="occupation" value={userDetails.occupation} onChange={handleChange} placeholder="Occupation" />
+          <Form.Control
+            type="text"
+            name="occupation"
+            value={userDetails.occupation}
+            onChange={handleChange}
+            placeholder="Occupation"
+          />
         </Form.Group>
-        <Button variant="primary" type="submit">Update Profile</Button>
+        <Button variant="primary" type="submit">
+          Profile
+        </Button>
       </Form>
     </Container>
   );

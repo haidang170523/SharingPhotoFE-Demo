@@ -61,7 +61,7 @@ const TopBar = ({ auth, setAuth }) => {
     <AppBar className="topbar-appBar" position="absolute">
       <Toolbar>
         <Typography variant="h5" color="inherit" style={{ flexGrow: 1 }}>
-          Ngo Hai Dang - B21DCCN201 - {context}
+          Ngo Hai Dang - B21DCCN201 {context}
         </Typography>
         {user && (
           <>
@@ -76,7 +76,7 @@ const TopBar = ({ auth, setAuth }) => {
               Profile
             </Button>
             <Button color="inherit" onClick={handleLogout}>
-              Logout
+              Sign out
             </Button>
           </>
         )}

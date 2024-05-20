@@ -213,51 +213,51 @@ const UserPhotos = () => {
                   }
                 />
                 {editTitleId === photo._id ? (
-                <>
-                  <TextField
-                    fullWidth
-                    margin="dense"
-                    value={editTitleText}
-                    onChange={(e) => setEditTitleText(e.target.value)}
-                  />
-                  <IconButton
-                  className="edit-title-button"
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleUpdateTitle(photo._id)}
-                    style={{ margin: "5px" }}
-                  >
-                    Save
-                  </IconButton>
-                  <IconButton
-                  className="edit-title-button"
-                    variant="contained"
-                    onClick={() => {
-                      setEditTitleId(null);
-                      setEditTitleText("");
-                    }}
-                    style={{ margin: "5px" }}
-                  >
-                    Cancel
-                  </IconButton>
-                </>
-                ) : (
-                <>
-                  <Typography variant="h6">{photo.title}</Typography>
-                  {photo.user_id === currentUser._id && (
+                  <>
+                    <TextField
+                      fullWidth
+                      margin="dense"
+                      value={editTitleText}
+                      onChange={(e) => setEditTitleText(e.target.value)}
+                    />
                     <IconButton
-                    className="edit-title-button"
-                      onClick={() => {
-                        setEditTitleId(photo._id);
-                        setEditTitleText(photo.title);
-                      }}
-                      style={{ marginLeft: "10px" }}
+                      className="edit-title-button"
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleUpdateTitle(photo._id)}
+                      style={{ margin: "5px" }}
                     >
-                      Edit
+                      Save
                     </IconButton>
-                  )}
-                </>
-                ) }
+                    <IconButton
+                      className="edit-title-button"
+                      variant="contained"
+                      onClick={() => {
+                        setEditTitleId(null);
+                        setEditTitleText("");
+                      }}
+                      style={{ margin: "5px" }}
+                    >
+                      Cancel
+                    </IconButton>
+                  </>
+                ) : (
+                  <>
+                    <Typography variant="h6">{photo.title}</Typography>
+                    {photo.user_id === currentUser._id && (
+                      <IconButton
+                        className="edit-title-button"
+                        onClick={() => {
+                          setEditTitleId(photo._id);
+                          setEditTitleText(photo.title);
+                        }}
+                        style={{ marginLeft: "10px" }}
+                      >
+                        Edit
+                      </IconButton>
+                    )}
+                  </>
+                )}
                 <CardMedia
                   component="img"
                   image={
@@ -353,7 +353,7 @@ const UserPhotos = () => {
                     onClick={() => handleAddComment(photo._id)}
                     className="post-comment-button"
                   >
-                    Post Comment
+                    Comment
                   </Button>
                   {photo.user_id === currentUser._id && (
                     <>
@@ -363,7 +363,7 @@ const UserPhotos = () => {
                         onClick={() => handleDeletePhoto(photo._id)}
                         className="delete-photo-button"
                       >
-                        Delete Photo
+                        Delete
                       </Button>
                     </>
                   )}
